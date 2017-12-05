@@ -38,9 +38,7 @@ INSERT INTO MC_hint (625, 1, 'The Underground Railroad was generally south to no
 
 INSERT INTO multipleChoice (625, 2, 'The CPR\'s secret railway line', 'Yes');
 
-INSERT INTO MC_hint (625, 2, 'The Underground Railroad was secret, but it had nothing to do 
-with trains.
-');
+INSERT INTO MC_hint (625, 2, 'The Underground Railroad was secret, but it had nothing to do with trains.');
 
 INSERT INTO multipleChoice (625, 3, 'The TTC subway system', 'Yes');
 

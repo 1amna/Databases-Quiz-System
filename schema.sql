@@ -24,7 +24,7 @@ CREATE TABLE class(
 );
 
 
--- A class which a studet can enroll in.
+-- A class which a student can enroll in.
 CREATE TABLE enrolled(
   sid INT REFERENCES student(id),
   cid INT REFERENCES class(id),
@@ -38,16 +38,17 @@ CREATE TABLE question(
   id INT PRIMARY KEY,
   qtext VARCHAR(100) NOT NULL, 
   answer VARCHAR(100) NOT NULL,
-  qtype VARCHAR(8) NOT NULL
+  qtype VARCHAR(100) NOT NULL
 );
 
 
 -- A class which a studet can enroll in.
 CREATE TABLE multipleChoice(
   id INT REFERENCES question(id),
-  qoption_id INT PRIMARY KEY,
+  qoption_id INT NOT NULL,
   qoption VARCHAR(100) NOT NULL,
-  has_hint VARCHAR(100) NOT NULL  --true/false? 
+  has_hint VARCHAR(100) NOT NULL,  --true/false? 
+  UNIQUE(id, qoption_id)
 );
 
 -- A class which a studet can enroll in.
@@ -59,9 +60,10 @@ CREATE TABLE numeric(
 );
 
 CREATE TABLE MC_hint(
-  question_id INT REFERENCES mulipleChoice(id) UNIQUE, -- not sure about unique here and qoption_id, want them both to be the primary key
-  qoption_id INT REFERENCES multipleChoice(qoption_id) UNIQUE, -- null? primary key? we DONT want it to give multiple hints for same option in the same question 
-  answer_hint VARCHAR(100) NOT NULL
+  question_id INT, -- not sure about unique here and qoption_id, want them both to be the primary key
+  qoption_id INT, -- not null? primary key? we DONT want it to give multiple hints for same option in the same question 
+  answer_hint VARCHAR(100) NOT NULL,
+  FOREIGN KEY(question_id, qoption_id) REFERENCES multipleChoice(id, qoption_id)
 );
 
 -- A class which a studet can enroll in.
@@ -87,7 +89,7 @@ CREATE TABLE response(
   sid INT NOT NULL,
   cid INT REFERENCES class(id), 
   response VARCHAR(100) NOT NULL,
-  quiz_content_id VARCHAR(100) REFERENCES quiz_content(id), --Maybe question_id? we need to know which question they answered
+  quiz_content_id INT  REFERENCES quiz_content(id), --Maybe question_id? we need to know which question they answered
 
   foreign key (sid,cid) REFERENCES enrolled(sid,cid)
 
