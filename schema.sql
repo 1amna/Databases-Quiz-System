@@ -37,8 +37,8 @@ CREATE TABLE enrolled(
 CREATE TABLE question(
   id BIGINT PRIMARY KEY,
   qtext VARCHAR(1000) NOT NULL, 
-  answer VARCHAR(1000) NOT NULL,
-  qtype VARCHAR(1000) NOT NULL
+  answer VARCHAR(100) NOT NULL,
+  qtype VARCHAR(50) NOT NULL
 );
 
 
