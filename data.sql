@@ -17,7 +17,7 @@ INSERT INTO multipleChoice VALUES (782, 1, 'To pledge your allegiance to the fla
 
 INSERT INTO multipleChoice VALUES (782, 2, 'To pledge your allegiance to the flag and fulfill the duties of a Canadian','Yes');
 
-INSERT INTO MC_hint(782, 2, 'Think regally.');
+INSERT INTO MC_hint VALUES (782, 2, 'Think regally.');
 
 INSERT INTO multipleChoice VALUES (782, 3, 'To pledge your loyalty to Canada from sea to sea', 'No' );
 
@@ -45,7 +45,7 @@ INSERT INTO MC_hint VALUES (625, 3, 'The TTC is relatively recent; the Undergrou
 
 INSERT INTO question VALUES (566,'The Prime Minister, Justin Trudeau, is Canada''s Head of State.' ,'False', 'True-False');
 
-INSERT INTO question (790, 'During the War of 1812 the Americans burned down the Parliament Buildings in York (now Toronto). What did the British and Canadians do in return?', 'They burned down the White House in Washington D.C.', 'Multiple-Choice');
+INSERT INTO question VALUES (790, 'During the War of 1812 the Americans burned down the Parliament Buildings in York (now Toronto). What did the British and Canadians do in return?', 'They burned down the White House in Washington D.C.', 'Multiple-Choice');
 
 INSERT INTO multipleChoice VALUES (790, 1, 'They attacked American merchant ships', 'No');
 
@@ -63,9 +63,9 @@ INSERT INTO quiz_content VALUES (1, 'Pr1-220310', 601,2);
 
 INSERT INTO quiz_content VALUES (2, 'Pr1-220310', 566, 1);
 
-INSERT INTO quiz_content VALUES (3, 'Pr1-220310', 790, 3);
-
 INSERT INTO quiz_content VALUES (4, 'Pr1-220310', 625, 2);
+
+INSERT INTO quiz_content VALUES (3, 'Pr1-220310', 790, 4);
 
 INSERT INTO student VALUES (0998801234, 'Lena', 'Headey');
 

@@ -67,8 +67,9 @@ CREATE TABLE MC_hint(
 );
 
 -- A class which a studet can enroll in.
+
 CREATE TABLE quiz(
-  id VARCHAR(100) PRIMARY KEY,
+  id VARCHAR(1000) PRIMARY KEY,
   title VARCHAR(1000) NOT NULL, 
   start_date DATE NOT NULL, --format YYYY-MM-DD
   start_time TIME NOT NULL,
@@ -79,7 +80,7 @@ CREATE TABLE quiz(
 -- A class which a studet can enroll in.
 CREATE TABLE quiz_content(
   id BIGINT PRIMARY KEY,
-  quiz_id VARCHAR(100) REFERENCES quiz(id), 
+  quiz_id VARCHAR(1000) REFERENCES quiz(id), 
   question_id BIGINT REFERENCES question(id),
   weight INT NOT NULL
 );
