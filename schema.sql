@@ -9,7 +9,7 @@ SET SEARCH_PATH to a3;
 
 -- A student
 CREATE TABLE student(
-  id INT primary key,
+  id BIGINT primary key,
   -- The first name of the student.
   fname VARCHAR(50) NOT NULL,
   lname VARCHAR(50) NOT NULL
@@ -17,17 +17,17 @@ CREATE TABLE student(
 
 -- A class which a studet can enroll in.
 CREATE TABLE class(
-  id INT PRIMARY KEY,
-  room INT NOT NULL, 
-  grade INT NOT NULL, 
+  id BIGINT PRIMARY KEY,
+  room BIGINT NOT NULL, 
+  grade BIGINT NOT NULL, 
   teacher VARCHAR(50)
 );
 
 
 -- A class which a student can enroll in.
 CREATE TABLE enrolled(
-  sid INT REFERENCES student(id),
-  cid INT REFERENCES class(id),
+  sid BIGINT REFERENCES student(id),
+  cid BIGINT REFERENCES class(id),
   UNIQUE(sid, cid)
   
 );
@@ -35,61 +35,61 @@ CREATE TABLE enrolled(
 -- A class which a studet can enroll in.
 -- Check type, then turn answer into int for
 CREATE TABLE question(
-  id INT PRIMARY KEY,
-  qtext VARCHAR(100) NOT NULL, 
-  answer VARCHAR(100) NOT NULL,
-  qtype VARCHAR(100) NOT NULL
+  id BIGINT PRIMARY KEY,
+  qtext VARCHAR(1000) NOT NULL, 
+  answer VARCHAR(1000) NOT NULL,
+  qtype VARCHAR(1000) NOT NULL
 );
 
 
 -- A class which a studet can enroll in.
 CREATE TABLE multipleChoice(
-  id INT REFERENCES question(id),
-  qoption_id INT NOT NULL,
-  qoption VARCHAR(100) NOT NULL,
-  has_hint VARCHAR(100) NOT NULL,  --true/false? 
+  id BIGINT REFERENCES question(id),
+  qoption_id BIGINT NOT NULL,
+  qoption VARCHAR(1000) NOT NULL,
+  has_hint VARCHAR(1000) NOT NULL,  --true/false? 
   UNIQUE(id, qoption_id)
 );
 
 -- A class which a studet can enroll in.
 CREATE TABLE numeric(
-  id INT REFERENCES question(id),
-  lbound VARCHAR(100) NOT NULL, 
-  ubound VARCHAR(100) NOT NULL, 
-  hint VARCHAR(100) 
+  id BIGINT REFERENCES question(id),
+  lbound VARCHAR(1000) NOT NULL, 
+  ubound VARCHAR(1000) NOT NULL, 
+  hint VARCHAR(1000) 
 );
 
 CREATE TABLE MC_hint(
-  question_id INT, -- not sure about unique here and qoption_id, want them both to be the primary key
-  qoption_id INT, -- not null? primary key? we DONT want it to give multiple hints for same option in the same question 
-  answer_hint VARCHAR(100) NOT NULL,
+  question_id BIGINT, -- not sure about unique here and qoption_id, want them both to be the primary key
+  qoption_id BIGINT, -- not null? primary key? we DONT want it to give multiple hints for same option in the same question 
+  answer_hint VARCHAR(1000) NOT NULL,
   FOREIGN KEY(question_id, qoption_id) REFERENCES multipleChoice(id, qoption_id)
 );
 
 -- A class which a studet can enroll in.
 CREATE TABLE quiz(
   id VARCHAR(100) PRIMARY KEY,
-  title VARCHAR(100) NOT NULL, 
+  title VARCHAR(1000) NOT NULL, 
   start_date DATE NOT NULL, --format YYYY-MM-DD
   start_time TIME NOT NULL,
-  cid INT REFERENCES class(id) NOT NULL,
-  hintFlag VARCHAR(10) -- default this to 'False' to avoid nulls?
+  cid BIGINT REFERENCES class(id) NOT NULL,
+  hintFlag VARCHAR(1000) -- default this to 'False' to avoid nulls?
 );
 
 -- A class which a studet can enroll in.
 CREATE TABLE quiz_content(
-  id INT PRIMARY KEY,
+  id BIGINT PRIMARY KEY,
   quiz_id VARCHAR(100) REFERENCES quiz(id), 
-  question_id INT REFERENCES question(id),
+  question_id BIGINT REFERENCES question(id),
   weight INT NOT NULL
 );
 
 -- response is answer in whiteboard pictures
 CREATE TABLE response(
-  sid INT NOT NULL,
-  cid INT REFERENCES class(id), 
-  response VARCHAR(100) NOT NULL,
-  quiz_content_id INT  REFERENCES quiz_content(id), --Maybe question_id? we need to know which question they answered
+  sid BIGINT NOT NULL,
+  cid BIGINT REFERENCES class(id), 
+  response VARCHAR(1000) NOT NULL,
+  quiz_content_id BIGINT  REFERENCES quiz_content(id), --Maybe question_id? we need to know which question they answered
 
   foreign key (sid,cid) REFERENCES enrolled(sid,cid)
 
