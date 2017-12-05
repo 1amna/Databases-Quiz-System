@@ -36,7 +36,7 @@ INSERT INTO multipleChoice (625, 1, 'The first railway to cross Canada', 'Yes');
 INSERT INTO MC_hint (625, 1, 'The Underground Railroad was generally south to north, not east-west.
 ');
 
-INSERT INTO multipleChoice (625, 2, 'The CPR\'s secret railway line', 'Yes');
+INSERT INTO multipleChoice (625, 2, 'The CPRi''s secret railway line', 'Yes');
 
 INSERT INTO MC_hint (625, 2, 'The Underground Railroad was secret, but it had nothing to do with trains.');
 
@@ -44,7 +44,7 @@ INSERT INTO multipleChoice (625, 3, 'The TTC subway system', 'Yes');
 
 INSERT INTO MC_hint (625, 3, 'The TTC is relatively recent; the Underground Railroad was in operation over 100 years ago.');
 
-INSERT INTO question (566,'The Prime Minister, Justin Trudeau, is Canada\'s Head of State.' ,'False', 'True-False');
+INSERT INTO question (566,'The Prime Minister, Justin Trudeau, is Canada''s Head of State.' ,'False', 'True-False');
 
 INSERT INTO question (790, 'During the War of 1812 the Americans burned down the Parliament Buildings in York (now Toronto). What did the British and Canadians do in return?', 'They burned down the White House in Washington D.C.', 'Multiple-Choice');
 
@@ -91,7 +91,7 @@ INSERT INTO enrolled (5555555555, 8120);
 INSERT INTO enrolled (1111111111, 8120);
 
 INSERT INTO enrolled (2222222222, 5366);
--- sid, cid, response, 1/2/3/4
+
 INSERT INTO response (0998801234, 8120, '1950', 1);
 
 INSERT INTO response (0998801234, 8120, 'False', 2);
@@ -114,7 +114,7 @@ INSERT INTO response (0997733991, 8120, 'True', 2);
 
 INSERT INTO response (0997733991, 8120, 'They burned down the White House in Washington D.C.', 3);
 
-INSERT INTO response (0997733991, 8120, 'The CPR\'s secret railway line', 4);
+INSERT INTO response (0997733991, 8120, 'The CPR''s secret railway line', 4);
 
 INSERT INTO response (5555555555, 8120, 'False', 2);
 
