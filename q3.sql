@@ -65,16 +65,6 @@ CREATE VIEW weighted_responses AS -- G
 		quiz_responses.quiz_content_id = quiz_answers.quiz_content_id; 
 
 DROP VIEW IF EXISTS no_response CASCADE;
-
--- find those who did not give a response to at least one quiz content
--- CREATE VIEW no_response AS  -- I
---	(SELECT * 
---	FROM all_took)
---	
---	EXCEPT ALL
---	
---	(SELECT *
---	FROM weighted_responses);
 		 
 DROP VIEW IF EXISTS correct_response CASCADE;
 
@@ -86,23 +76,6 @@ CREATE VIEW correct_response AS -- H
 			AND response.quiz_content_id = weighted_responses.quiz_content_id
 	WHERE weighted_responses.answer = response.response;
 
-
-DROP VIEW IF EXISTS all_quizzed CASCADE;
-
--- include all students who were supposed to be taking the quiz, including their
--- responses or lack thereof. The mark for those with incorrect response 
--- is irrelevant because they will fall into responded at all or haven't
--- responded at all, especially since an incorrect response = score of 0 for that
--- part.  
---CREATE VIEW all_quizzed AS -- J
---	(SELECT *   
---	FROM correct_response) 
---	
---	UNION  
---	
---	(SELECT * 
----	FROM no_response);
-DROP VIEW IF EXISTS no_response CASCADE;
 
 --Find all the SID's of students in class but did  not respond to not even
 -- one question
@@ -127,15 +100,6 @@ DROP VIEW IF EXISTS scores_all CASCADE;
 CREATE VIEW scores_all AS
 	(SELECT * FROM correct_counts) UNION (SELECT * FROM no_response);
  
--- Calculate the weighted sum per student in class who was assgined the quiz
---CREATE VIEW scores_all AS -- K
---	SELECT all_quizzed.sid, sum(all_quizzed.weight)
---	FROM all_quizzed
---	GROUP BY all_quizzed.sid;
----
-	
-
-
 	
 SELECT scores_all.sid AS Student_Number, student.lname 
 AS Last_Name, scores_all.total_score AS total_grade  
