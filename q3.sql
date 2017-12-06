@@ -3,13 +3,6 @@ SET SEARCH_PATH TO a3;
 --Compute the grade and total score on quiz Pr1-220310 for every student in the grade 8 class in room 120 with Mr Higgins. Report the student number, last name, and total grade.
 
 -- we want the weighted total
-DROP TABLE IF EXISTS q3 CASCADE;
-CREATE TABLE q3(
-	StudentNumber BIGINT,
-	LastName VARCHAR(1000),
-	total_grade BIGINT
-);
-
 
 DROP VIEW IF EXISTS find_classID CASCADE;
 
@@ -144,8 +137,9 @@ CREATE VIEW scores_all AS
 
 
 	
---INSERT INTO q3
-INSERT INTO q3 select scores_all.sid AS Student_Number, student.lname AS Last_Name, scores_all.total_score AS total_grade  from scores_all INNER JOIN student ON student.id = scores_all.sid;
+SELECT scores_all.sid AS Student_Number, student.lname 
+AS Last_Name, scores_all.total_score AS total_grade  
+FROM scores_all INNER JOIN student ON student.id = scores_all.sid;
 
 
 --;
