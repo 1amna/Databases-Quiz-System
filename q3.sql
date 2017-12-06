@@ -78,7 +78,7 @@ CREATE VIEW no_response AS  -- I
 	(SELECT * 
 	FROM all_took)
 	
-	EXCEPT
+	EXCEPT  
 	
 	(SELECT *
 	FROM weighted_responses);
@@ -86,11 +86,20 @@ CREATE VIEW no_response AS  -- I
 DROP VIEW IF EXISTS correct_response CASCADE;
 
 -- find those who correctly responded to at least one question on the quiz
-CREATE VIEW correct_response AS
+CREATE VIEW correct_response AS -- H
 	SELECT *
 	FROM weighted_responses 
 	WHERE response = answer;
 
+
+DROP VIEW IF EXISTS all_quizzed CASCADE;
+
+-- include all students who were supposed to be taking the quiz, including their
+-- responses or lack thereof
+CREATE VIEW all_quizzed AS -- J
+	(SELECT *   
+	FROM H) UNION ALL (SELECT * FROM );
+	
 --INSERT INTO q3
 
 
