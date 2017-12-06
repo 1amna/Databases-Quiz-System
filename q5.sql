@@ -2,19 +2,20 @@ SET SEARCH_PATH to a3;
 
 --Report the full name and student number of all students in the database.
 -- must concatenate the first and last name, split by space and rename resulting coloumns
-DROP TABLE IF EXISTS q5 CASCADE; 
-CREATE TABLE q5(
-	questionID BIGINT,
-	correctAnswers BIGINT,
-	incorrectAnswers BIGINT,
-	didNotAnswer BIGINT
-);
 
 DROP VIEW IF EXISTS get_id CASCADE;
 DROP VIEW IF EXISTS all_quiz_questions CASCADE;
 DROP VIEW IF EXISTS response_join_content CASCADE;
-
-
+DROP VIEW IF EXISTS grade8_sid CASCADE;
+DROP VIEW IF EXISTS expected_responses CASCADE;
+DROP VIEW IF EXISTS response_grade8 CASCADE;
+DROP VIEW IF EXISTS match_content CASCADE;
+DROP VIEW IF EXISTS match_answer CASCADE;
+DROP VIEW IF EXISTS actual_responses CASCADE;
+DROP VIEW IF EXISTS not_answered CASCADE;
+DROP VIEW IF EXISTS did_not_answer CASCADE;
+DROP VIEW IF EXISTS correct_answer CASCADE;
+DROP VIEW IF EXISTS incorrect_answer CASCADE;
 -- Gets the ID for the class with the specified fields.
 CREATE VIEW get_id AS
 	SELECT id
@@ -96,13 +97,12 @@ CREATE VIEW incorrect_answer AS
 	GROUP BY question_id;
 
 -- Matches each question with its correct, incorrect and did not answer statistics (count)
-CREATE VIEW match_statistics AS
-	SELECT * 
-	FROM correct_answer
-		NATURAL JOIN incorrect_answer
-		NATURAL JOIN did_not_answer;
-
-INSERT INTO q5 SELECT * FROM match_statistics;
+SELECT correct_answer.questionID AS questionID, correct_answer.correctAnswer AS
+	correctAnswers, incorrect_answer.incorrectAnswer AS incorrectAnswers
+	, did_not_answer.didNotAnswer AS didNotAnswer
+FROM correct_answer
+	NATURAL JOIN incorrect_answer
+	NATURAL JOIN did_not_answer;
 
 
 
