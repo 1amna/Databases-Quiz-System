@@ -6,7 +6,7 @@ SET SEARCH_PATH TO a3;
 DROP TABLE IF EXISTS q3 CASCADE;
 CREATE TABLE q3(
 	StudentNumber BIGINT  PRIMARY KEY,
-	LastName VARCHAR(1000),
+--	LastName VARCHAR(1000),
 	total_grade BIGINT
 );
 
@@ -95,12 +95,32 @@ CREATE VIEW correct_response AS -- H
 DROP VIEW IF EXISTS all_quizzed CASCADE;
 
 -- include all students who were supposed to be taking the quiz, including their
--- responses or lack thereof
+-- responses or lack thereof. The mark for those with incorrect response 
+-- is irrelevant because they will fall into responded at all or haven't
+-- responded at all, especially since an incorrect response = score of 0 for that
+-- part.  
 CREATE VIEW all_quizzed AS -- J
-	(SELECT *   
-	FROM H) UNION ALL (SELECT * FROM );
+	SELECT *   
+	FROM correct_response 
+	
+	UNION ALL 
+	
+	SELECT * 
+	FROM no_response;
+
+DROP VIEW IF EXISTS scores_all CASCADE;
+
+-- Calculate the weighted sum per student in class who was assgined the quiz
+CREATE VIEW scores_all AS -- K
+	SELECT all_quizzed.sid, sum(ISNULL(all_quizzed.weight,0))
+	FROM all_quizzed
+	GROUP BY all_quizzed.sid;
+
+	
+
+
 	
 --INSERT INTO q3
-
+INSERT INTO q3 select * from scores_all;
 
 --;
