@@ -1,5 +1,15 @@
--- Schema for storing a subset of the Parliaments and Governments database
--- available at http://www.parlgov.org/
+-- Unenforced constraints: 
+-- teachers and rooms: We can only make the room unique to a teacher if we make the room unique, 
+-- But if we make the room unique a teacher can't teach two classes in the same room
+-- so that is not enforced.
+-- Also, enrolled and class: 
+-- A student can't enroll in a class unless it exists 
+-- And a class can only exist if it has at least one student in it 
+-- rooms, teacher and classes: 
+-- can't implement one teacher per room AS WELL AS the two classes per room constraint as having a uniqueness
+-- between teacher and room implies that the row cannot be repeated again, therefore the same room occupied by teacher 
+-- cannot be used for more than 1 class.
+-- we are implementing the uniqueness of teacher and room but not the two classes per room for the above reasons. 
 
 
 DROP SCHEMA IF EXISTS a3 CASCADE;
@@ -20,7 +30,9 @@ CREATE TABLE class(
   id BIGINT PRIMARY KEY,
   room BIGINT NOT NULL, 
   grade BIGINT NOT NULL, 
-  teacher VARCHAR(50)
+  teacher VARCHAR(50),
+  Unique(room, teacher)
+  
 );
 
 
@@ -32,8 +44,7 @@ CREATE TABLE enrolled(
   
 );
 
--- A class which a studet can enroll in.
--- Check type, then turn answer into int for
+-- question bank details, including each question's correct answer
 CREATE TABLE question(
   id BIGINT PRIMARY KEY,
   qtext VARCHAR(1000) NOT NULL, 
@@ -41,17 +52,17 @@ CREATE TABLE question(
   qtype VARCHAR(50) NOT NULL
 );
 
-
--- A class which a studet can enroll in.
+-- table for all answers for  multiple choice questions aside from
+--  the correct one, inlcuding the option for hints
 CREATE TABLE multipleChoice(
   id BIGINT REFERENCES question(id),
   qoption_id BIGINT NOT NULL,
   qoption VARCHAR(1000) NOT NULL,
-  has_hint VARCHAR(1000) NOT NULL,  --true/false? 
+  has_hint VARCHAR(1000) NOT NULL, -- eg. 'Yes' or 'No'
   UNIQUE(id, qoption_id)
 );
 
--- A class which a studet can enroll in.
+-- numeric questions' hints
 CREATE TABLE numeric(
   id BIGINT REFERENCES question(id),
   lbound VARCHAR(1000) NOT NULL, 
@@ -59,6 +70,7 @@ CREATE TABLE numeric(
   hint VARCHAR(1000) NOT NULL 
 );
 
+-- table for MC questions options that have hints 
 CREATE TABLE MC_hint(
   question_id BIGINT, -- not sure about unique here and qoption_id, want them both to be the primary key
   qoption_id BIGINT, -- not null? primary key? we DONT want it to give multiple hints for same option in the same question 
@@ -66,18 +78,18 @@ CREATE TABLE MC_hint(
   FOREIGN KEY(question_id, qoption_id) REFERENCES multipleChoice(id, qoption_id)
 );
 
--- A class which a studet can enroll in.
-
+-- a typical quiz layout for a class
 CREATE TABLE quiz(
   id VARCHAR(1000) PRIMARY KEY,
   title VARCHAR(1000) NOT NULL, 
   start_date DATE NOT NULL, --format YYYY-MM-DD
   start_time TIME NOT NULL,
   cid BIGINT REFERENCES class(id) NOT NULL,
-  hintFlag VARCHAR(1000) -- default this to 'False' to avoid nulls?
+  hintFlag VARCHAR(1000)  -- Show hint for this quiz? 'True' or 'False'
 );
 
--- A class which a studet can enroll in.
+-- instances of questions from question bank used in the specific quiz 
+-- identified by quiz_id, including the weight of individual questions on that quiz 
 CREATE TABLE quiz_content(
   id BIGINT PRIMARY KEY,
   quiz_id VARCHAR(1000) REFERENCES quiz(id), 
@@ -85,28 +97,15 @@ CREATE TABLE quiz_content(
   weight INT NOT NULL
 );
 
--- response is answer in whiteboard pictures
+-- the students of a class who respond to a quiz's content 
 CREATE TABLE response(
   sid BIGINT NOT NULL,
   cid BIGINT REFERENCES class(id), 
   response VARCHAR(1000) NOT NULL,
-  quiz_content_id BIGINT  REFERENCES quiz_content(id), --Maybe question_id? we need to know which question they answered
+  quiz_content_id BIGINT  REFERENCES quiz_content(id), 
 
   foreign key (sid,cid) REFERENCES enrolled(sid,cid)
 
 
 );
 
-
-/*
-ALTER TABLE cabinet ADD CONSTRAINT 
-  fk_election_id 
-  FOREIGN KEY (election_id) REFERENCES election;
-*/
-
-/*
-CREATE INDEX cabinet_party_party_id_inx ON cabinet_party(party_id);
-CREATE INDEX cabinet_party_cabinet_id_inx ON cabinet_party(cabinet_id);
-CREATE INDEX election_result_party_id_inx ON election_result(party_id);
-CREATE INDEX election_result_election_id_inx ON election_result(election_id);
-*/
