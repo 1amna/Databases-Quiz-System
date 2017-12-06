@@ -5,7 +5,7 @@ SET SEARCH_PATH to a3;
 DROP TABLE IF EXISTS q2 CASCADE;
 CREATE TABLE q2(
   question_id BIGINT PRIMARY KEY,
-  question_text VARCHAR(1000) NOT NULL,
+  question_text VARCHAR(50) NOT NULL,
   number_of_hints BIGINT
 
 );
@@ -57,7 +57,8 @@ CREATE VIEW hintsTogether AS
 
 DROP VIEW IF EXISTS allTypes CASCADE;
 CREATE VIEW allTypes AS
-  SELECT question.id AS id, question.qtext AS qtext, hintsTogether.counts AS counts  
+  SELECT question.id AS id, left(question.qtext, 50) AS qtext, hintsTogether.counts AS counts  
+
   FROM question left join hintsTogether on question.id = hintsTogether.id;
  
 insert into q2 select * from allTypes;
