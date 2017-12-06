@@ -2,16 +2,15 @@ SET SEARCH_PATH to a3;
 
 --Report the full name and student number of all students in the database.
 -- must concatenate the first and last name, split by space and rename resulting coloumns
-DROP TABLE IF EXISTS q4 CASCADE; 
-CREATE TABLE q4(
-	studentID BIGINT,
-	questionID BIGINT,
-	text VARCHAR(1000)
-);
 
 DROP VIEW IF EXISTS get_id CASCADE;
 DROP VIEW IF EXISTS all_quiz_questions CASCADE;
 DROP VIEW IF EXISTS response_join_content CASCADE;
+DROP VIEW IF EXISTS grade8_sid CASCADE;
+DROP VIEW IF EXISTS expected_responses CASCADE;
+DROP VIEW IF EXISTS response_grade8 CASCADE;
+DROP VIEW IF EXISTS not_answered CASCADE;
+DROP VIEW IF EXISTS na_match_qtext CASCADE;
 
 --NOTE a large portion of these views do not need to be made since we can hardcode
 -- the class id of Mr Higgins class for example. The reason we chose to implement 
@@ -68,10 +67,9 @@ CREATE VIEW not_answered AS
 --Matches the question_id of questions not answered with their corresponding
 -- question text.
 CREATE VIEW na_match_qtext AS
-	SELECT sid, question_id, qtext
+	SELECT sid, question_id, left(qtext, 50) as qtext
 	FROM not_answered as n
 		INNER JOIN question as q
 	ON n.question_id = q.id;	
 
--- Maybe order by student# then question#
-INSERT INTO q4 SELECT sid as studentID, question_id as questionID, qtext as text FROM na_match_qtext;
+SELECT sid as studentID, question_id as questionID, qtext as text FROM na_match_qtext;
