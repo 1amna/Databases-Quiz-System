@@ -40,10 +40,56 @@ CREATE VIEW class_quiz AS -- C
 DROP VIEW IF EXISTS quiz_answers CASCADE;
 
 -- give weights and answers per questino on quiz
-CREATE VIEW quiz_answers AS
+CREATE VIEW quiz_answers AS  -- D
+	SELECT class_quiz.quiz_id, class_quiz.cid, class_quiz.quiz_content_id, 
+		class_quiz.question_id, class_quiz.weight, question.answer 
+	FROM question INNER JOIN class_quiz ON question.id = class_quiz.question_id;
+	
+DROP VIEW IF EXISTS all_took CASCADE;
+  
+-- join quiz_answers with class_students to get the "ideal" situation of
+-- all students in the class taking the quiz and answering all questions
+CREATE VIEW all_took AS -- E
+	SELECT class_students.sid, quiz_answers.*
+	FROM quiz_answers CROSS JOIN class_students;
+	
+DROP VIEW IF EXISTS quiz_responses CASCADE;
 
+-- find students in the said class who actually responded to any question on the 
+-- quiz
+CREATE VIEW quiz_responses AS -- F
+	SELECT response.sid, class_students.*  
+	FROM response INNER JOIN class_students ON response.sid = class_students.sid AND
+		response.cid = class_students.cid;
 
+DROP VIEW IF EXISTS weighted_responses CASCADE;
 
+-- include the weights to each answered question on the quiz, 
+-- as well as correct answers 
+CREATE VIEW weighted_responses AS -- G
+	SELECT quiz_responses.sid, quiz_answers.* 
+	FROM quiz_responses INNER JOIN quiz_answers ON 
+		quiz_responses.quiz_content_id = quiz_answers.quiz_content_id; 
+
+DROP VIEW IF EXISTS no_response CASCADE;
+
+-- find those who did not give a response to at least one quiz content
+CREATE VIEW no_response AS  -- I
+	(SELECT * 
+	FROM all_took)
+	
+	EXCEPT
+	
+	(SELECT *
+	FROM weighted_responses);
+		 
+DROP VIEW IF EXISTS correct_response CASCADE;
+
+-- find those who correctly responded to at least one question on the quiz
+CREATE VIEW correct_response AS
+	SELECT *
+	FROM weighted_responses 
+	WHERE response = answer;
 
 --INSERT INTO q3
 
