@@ -5,8 +5,8 @@ SET SEARCH_PATH TO a3;
 -- we want the weighted total
 DROP TABLE IF EXISTS q3 CASCADE;
 CREATE TABLE q3(
-	StudentNumber BIGINT  PRIMARY KEY,
---	LastName VARCHAR(1000),
+	StudentNumber BIGINT,
+	LastName VARCHAR(1000),
 	total_grade BIGINT
 );
 
@@ -74,14 +74,14 @@ CREATE VIEW weighted_responses AS -- G
 DROP VIEW IF EXISTS no_response CASCADE;
 
 -- find those who did not give a response to at least one quiz content
-CREATE VIEW no_response AS  -- I
-	(SELECT * 
-	FROM all_took)
-	
-	EXCEPT ALL
-	
-	(SELECT *
-	FROM weighted_responses);
+-- CREATE VIEW no_response AS  -- I
+--	(SELECT * 
+--	FROM all_took)
+--	
+--	EXCEPT ALL
+--	
+--	(SELECT *
+--	FROM weighted_responses);
 		 
 DROP VIEW IF EXISTS correct_response CASCADE;
 
@@ -101,28 +101,51 @@ DROP VIEW IF EXISTS all_quizzed CASCADE;
 -- is irrelevant because they will fall into responded at all or haven't
 -- responded at all, especially since an incorrect response = score of 0 for that
 -- part.  
-CREATE VIEW all_quizzed AS -- J
-	(SELECT *   
-	FROM correct_response) 
-	
-	UNION  
-	
-	(SELECT * 
-	FROM no_response);
+--CREATE VIEW all_quizzed AS -- J
+--	(SELECT *   
+--	FROM correct_response) 
+--	
+--	UNION  
+--	
+--	(SELECT * 
+---	FROM no_response);
+DROP VIEW IF EXISTS no_response CASCADE;
+
+--Find all the SID's of students in class but did  not respond to not even
+-- one question
+CREATE VIEW no_response AS
+	SELECT all_Took.sid AS sid, 0 AS total_score -- zero as default?
+	FROM all_Took 
+	WHERE all_Took.sid NOT IN (SELECT correct_response.sid
+					FROM correct_response)
+	GROUP BY all_Took.sid;
+
+DROP VIEW IF EXISTS join_students CASCADE;
+
+CREATE VIEW correct_counts AS
+	SELECT correct_response.sid AS sid, sum(correct_response.weight)
+  		 AS total_score
+	FROM correct_response
+	GROUP BY correct_response.sid;
 
 DROP VIEW IF EXISTS scores_all CASCADE;
 
+-- JOIN both responders and non-responders
+CREATE VIEW scores_all AS
+	(SELECT * FROM correct_counts) UNION (SELECT * FROM no_response);
+ 
 -- Calculate the weighted sum per student in class who was assgined the quiz
-CREATE VIEW scores_all AS -- K
-	SELECT all_quizzed.sid, sum(all_quizzed.weight)
-	FROM all_quizzed
-	GROUP BY all_quizzed.sid;
-
+--CREATE VIEW scores_all AS -- K
+--	SELECT all_quizzed.sid, sum(all_quizzed.weight)
+--	FROM all_quizzed
+--	GROUP BY all_quizzed.sid;
+---
 	
 
 
 	
 --INSERT INTO q3
-INSERT INTO q3 select * from scores_all;
+INSERT INTO q3 select scores_all.sid AS Student_Number, student.lname AS Last_Name, scores_all.total_score AS total_grade  from scores_all INNER JOIN student ON student.id = scores_all.sid;
+
 
 --;
