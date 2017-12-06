@@ -2,15 +2,7 @@ SET SEARCH_PATH to a3;
 
 -- 1. For all questions in the database, report the question ID, question text, and the number of hints associated with it. For True-False questions, report NULL as the number of hints (since True-False questions cannot have hints).  
 
-DROP TABLE IF EXISTS q2 CASCADE;
 
--- create table into which you will later insert the values
-CREATE TABLE q2(
-  question_id BIGINT PRIMARY KEY,
-  question_text VARCHAR(50) NOT NULL,
-  number_of_hints BIGINT
-
-);
 
 --- split questions into their types, particularly into those with/without hints
 -- according to the type, group by question.id 
@@ -57,7 +49,5 @@ CREATE VIEW allTypes AS
   FROM question left join hintsTogether on question.id = hintsTogether.id;
 
 
--- Final step.  Populate the q2 table we created previously with the allTypes query result
-INSERT INTO q2 (
-  SELECT * 
-  FROM allTypes);
+SELECT id AS question_id, left(qtext, 50) AS question_text, counts AS number_of_hints
+FROM allTypes;
