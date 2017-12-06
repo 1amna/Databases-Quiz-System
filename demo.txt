@@ -1,0 +1,289 @@
+dbsrv1:~/dba3/db3$ clear
+
+dbsrv1:~/dba3/db3$ !ps
+psql csc343h-mahderba
+psql (9.5.10)
+Type "help" for help.
+
+csc343h-mahderba=> \i runner.txt
+-- Loading schema and data:
+psql:schema.sql:15: NOTICE:  drop cascades to 38 other objects
+DETAIL:  drop cascades to table a3.student
+drop cascades to table a3.class
+drop cascades to table a3.enrolled
+drop cascades to table a3.question
+drop cascades to table a3.multiplechoice
+drop cascades to table a3."numeric"
+drop cascades to table a3.mc_hint
+drop cascades to table a3.quiz
+drop cascades to table a3.quiz_content
+drop cascades to table a3.response
+drop cascades to view a3.mcq_hint_num
+drop cascades to view a3.mc_nohint
+drop cascades to view a3.numq_hint_num
+drop cascades to view a3.hintstogether
+drop cascades to view a3.alltypes
+drop cascades to view a3.find_classid
+drop cascades to view a3.class_students
+drop cascades to view a3.class_quiz
+drop cascades to view a3.quiz_answers
+drop cascades to view a3.all_took
+drop cascades to view a3.quiz_responses
+drop cascades to view a3.weighted_responses
+drop cascades to view a3.correct_response
+drop cascades to view a3.no_response
+drop cascades to view a3.correct_counts
+drop cascades to view a3.scores_all
+drop cascades to view a3.get_id
+drop cascades to view a3.grade8_sid
+drop cascades to view a3.all_quiz_questions
+drop cascades to view a3.expected_responses
+drop cascades to view a3.response_grade8
+drop cascades to view a3.match_content
+drop cascades to view a3.match_answer
+drop cascades to view a3.actual_responses
+drop cascades to view a3.not_answered
+drop cascades to view a3.did_not_answer
+drop cascades to view a3.correct_answer
+drop cascades to view a3.incorrect_answer
+DROP SCHEMA
+CREATE SCHEMA
+SET
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+SET
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+-- Query 1:
+SET
+    fullname     | studentnumber 
+-----------------+---------------
+ Lena Headey     |     998801234
+ Peter Dinklage  |      10784522
+ Emilia Clarke   |     997733991
+ Kit Harrington  |    5555555555
+ Sophie Turner   |    1111111111
+ Maisie Williams |    2222222222
+(6 rows)
+
+-- Query 2:
+SET
+psql:q2.sql:11: NOTICE:  view "mcq_hint_num" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:q2.sql:19: NOTICE:  view "mc_nohint" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:q2.sql:28: NOTICE:  view "numq_hint_num" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:q2.sql:37: NOTICE:  view "hintstogether" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:q2.sql:43: NOTICE:  view "alltypes" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+ question_id |                   question_text                    | number_of_hints 
+-------------+----------------------------------------------------+-----------------
+         782 | What do you promise when you take the oath of citi |               1
+         601 | During the "Quiet Revolution," Quebec experienced  |               3
+         625 | What is the Underground Railroad?                  |               3
+         566 | The Prime Minister, Justin Trudeau, is Canada's He |                
+         790 | During the War of 1812 the Americans burned down t |               0
+(5 rows)
+
+-- Query 3:
+SET
+psql:q3.sql:7: NOTICE:  view "find_classid" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:q3.sql:15: NOTICE:  view "class_students" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:q3.sql:24: NOTICE:  view "class_quiz" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:q3.sql:33: NOTICE:  view "quiz_answers" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:q3.sql:41: NOTICE:  view "all_took" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:q3.sql:49: NOTICE:  view "quiz_responses" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:q3.sql:58: NOTICE:  view "weighted_responses" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:q3.sql:67: NOTICE:  view "no_response" does not exist, skipping
+DROP VIEW
+psql:q3.sql:69: NOTICE:  view "correct_response" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+psql:q3.sql:89: NOTICE:  view "join_students" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+psql:q3.sql:97: NOTICE:  view "scores_all" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+ student_number | last_name  | total_grade 
+----------------+------------+-------------
+       10784522 | Dinklage   |           9
+      997733991 | Clarke     |           6
+      998801234 | Headey     |           3
+     1111111111 | Turner     |           0
+     5555555555 | Harrington |           1
+(5 rows)
+
+-- Query 4:
+SET
+psql:q4.sql:6: NOTICE:  view "get_id" does not exist, skipping
+DROP VIEW
+psql:q4.sql:7: NOTICE:  view "all_quiz_questions" does not exist, skipping
+DROP VIEW
+psql:q4.sql:8: NOTICE:  view "response_join_content" does not exist, skipping
+DROP VIEW
+psql:q4.sql:9: NOTICE:  view "grade8_sid" does not exist, skipping
+DROP VIEW
+psql:q4.sql:10: NOTICE:  view "expected_responses" does not exist, skipping
+DROP VIEW
+psql:q4.sql:11: NOTICE:  view "response_grade8" does not exist, skipping
+DROP VIEW
+psql:q4.sql:12: NOTICE:  view "not_answered" does not exist, skipping
+DROP VIEW
+psql:q4.sql:13: NOTICE:  view "na_match_qtext" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+ studentid  | questionid |                        text                        
+------------+------------+----------------------------------------------------
+ 1111111111 |        790 | During the War of 1812 the Americans burned down t
+ 1111111111 |        566 | The Prime Minister, Justin Trudeau, is Canada's He
+ 5555555555 |        601 | During the "Quiet Revolution," Quebec experienced 
+ 1111111111 |        601 | During the "Quiet Revolution," Quebec experienced 
+ 5555555555 |        625 | What is the Underground Railroad?
+ 1111111111 |        625 | What is the Underground Railroad?
+(6 rows)
+
+-- Query 5:
+SET
+psql:q5.sql:6: NOTICE:  drop cascades to 6 other objects
+DETAIL:  drop cascades to view grade8_sid
+drop cascades to view expected_responses
+drop cascades to view response_grade8
+drop cascades to view response_join_content
+drop cascades to view not_answered
+drop cascades to view na_match_qtext
+DROP VIEW
+DROP VIEW
+psql:q5.sql:8: NOTICE:  view "response_join_content" does not exist, skipping
+DROP VIEW
+psql:q5.sql:9: NOTICE:  view "grade8_sid" does not exist, skipping
+DROP VIEW
+psql:q5.sql:10: NOTICE:  view "expected_responses" does not exist, skipping
+DROP VIEW
+psql:q5.sql:11: NOTICE:  view "response_grade8" does not exist, skipping
+DROP VIEW
+psql:q5.sql:12: NOTICE:  view "match_content" does not exist, skipping
+DROP VIEW
+psql:q5.sql:13: NOTICE:  view "match_answer" does not exist, skipping
+DROP VIEW
+psql:q5.sql:14: NOTICE:  view "actual_responses" does not exist, skipping
+DROP VIEW
+psql:q5.sql:15: NOTICE:  view "not_answered" does not exist, skipping
+DROP VIEW
+psql:q5.sql:16: NOTICE:  view "did_not_answer" does not exist, skipping
+DROP VIEW
+psql:q5.sql:17: NOTICE:  view "correct_answer" does not exist, skipping
+DROP VIEW
+psql:q5.sql:18: NOTICE:  view "incorrect_answer" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+ questionid | correctanswers | incorrectanswers | didnotanswer 
+------------+----------------+------------------+--------------
+        566 |              3 |                1 |            1
+        601 |              2 |                1 |            2
+        625 |              2 |                1 |            2
+        790 |              2 |                2 |            1
+(4 rows)
+
+csc343h-mahderba=> \q
+dbsrv1:~/dba3/db3$ 
