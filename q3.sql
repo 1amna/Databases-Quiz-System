@@ -15,7 +15,7 @@ DROP VIEW IF EXISTS find_classID CASCADE;
 
 -- find the id of class using the room, teacher, grade attributes
 CREATE VIEW find_classID AS -- A
-	SELECT cid
+	SELECT id
 	FROM class
 	WHERE room = 120 AND teacher = 'Mr Higgins' AND grade = 8;
 
@@ -25,7 +25,7 @@ DROP VIEW IF EXISTS class_students CASCADE;
 CREATE VIEW class_students AS -- B
 	SELECT enrolled.sid AS sid, enrolled.cid AS cid 
 	FROM enrolled 
-	WHERE cid = (SELECT find_classID.cid 	
+	WHERE cid = (SELECT distinct find_classID.id 	
 			FROM find_classID);
 
 DROP VIEW IF EXISTS class_quiz CASCADE;
@@ -41,7 +41,7 @@ DROP VIEW IF EXISTS quiz_answers CASCADE;
 
 -- give weights and answers per questino on quiz
 CREATE VIEW quiz_answers AS  -- D
-	SELECT class_quiz.quiz_id, class_quiz.cid, class_quiz.quiz_content_id, 
+	SELECT class_quiz.quiz_id, class_quiz.cid, class_quiz.quiz_content_id AS quiz_content_id, 
 		class_quiz.question_id, class_quiz.weight, question.answer 
 	FROM question INNER JOIN class_quiz ON question.id = class_quiz.question_id;
 	
@@ -58,7 +58,7 @@ DROP VIEW IF EXISTS quiz_responses CASCADE;
 -- find students in the said class who actually responded to any question on the 
 -- quiz
 CREATE VIEW quiz_responses AS -- F
-	SELECT response.sid, class_students.*  
+	SELECT class_students.*, response.response, response.quiz_content_id -- FROM .SID 
 	FROM response INNER JOIN class_students ON response.sid = class_students.sid AND
 		response.cid = class_students.cid;
 
@@ -78,7 +78,7 @@ CREATE VIEW no_response AS  -- I
 	(SELECT * 
 	FROM all_took)
 	
-	EXCEPT  
+	EXCEPT ALL
 	
 	(SELECT *
 	FROM weighted_responses);
@@ -87,9 +87,11 @@ DROP VIEW IF EXISTS correct_response CASCADE;
 
 -- find those who correctly responded to at least one question on the quiz
 CREATE VIEW correct_response AS -- H
-	SELECT *
-	FROM weighted_responses 
-	WHERE response = answer;
+	SELECT weighted_responses.*
+	FROM weighted_responses INNER JOIN response ON response.sid = weighted_responses.sid 
+		AND response.cid = weighted_responses.cid 
+			AND response.quiz_content_id = weighted_responses.quiz_content_id
+	WHERE weighted_responses.answer = response.response;
 
 
 DROP VIEW IF EXISTS all_quizzed CASCADE;
@@ -100,19 +102,19 @@ DROP VIEW IF EXISTS all_quizzed CASCADE;
 -- responded at all, especially since an incorrect response = score of 0 for that
 -- part.  
 CREATE VIEW all_quizzed AS -- J
-	SELECT *   
-	FROM correct_response 
+	(SELECT *   
+	FROM correct_response) 
 	
-	UNION ALL 
+	UNION  
 	
-	SELECT * 
-	FROM no_response;
+	(SELECT * 
+	FROM no_response);
 
 DROP VIEW IF EXISTS scores_all CASCADE;
 
 -- Calculate the weighted sum per student in class who was assgined the quiz
 CREATE VIEW scores_all AS -- K
-	SELECT all_quizzed.sid, sum(ISNULL(all_quizzed.weight,0))
+	SELECT all_quizzed.sid, sum(all_quizzed.weight)
 	FROM all_quizzed
 	GROUP BY all_quizzed.sid;
 
