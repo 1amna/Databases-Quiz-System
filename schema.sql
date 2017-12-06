@@ -56,7 +56,7 @@ CREATE TABLE numeric(
   id BIGINT REFERENCES question(id),
   lbound VARCHAR(1000) NOT NULL, 
   ubound VARCHAR(1000) NOT NULL, 
-  hint VARCHAR(1000) 
+  hint VARCHAR(1000) NOT NULL 
 );
 
 CREATE TABLE MC_hint(
