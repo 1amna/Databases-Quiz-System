@@ -1,15 +1,4 @@
-SET SEARCH_PATH to a3;
--- tables for reference:
--- student(id, fname, lname)
--- class (id, room, grade, teacher)
--- enrolled (sid, cid)
--- question( id, qtext, answer, qtype)
--- multipleChoice(id,qoption_id, qoption, has_hint) //id c question(id)
--- numeric (id, lbound, ubound, hint)
--- quiz(id, title, start_date, start_time, cid)
--- quiz_content(id, quiz_id, question_id,weight)
--- response(sid,cid,iresponse, quiz_content_id )
--- MC_hint(question_id, qoption_id, answer_hint)
+SET SEARCH_PATH to Quiz_sys;
 
 INSERT INTO question VALUES (782, 'What do you promise when you take the oath of citizenship?', 'To pledge your loyalty to the Sovereign, Queen Elizabeth II', 'Multiple-Choice');
 

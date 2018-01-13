@@ -1,4 +1,4 @@
-SET SEARCH_PATH to a3;
+SET SEARCH_PATH to Quiz_sys;
 
 -- 1. For all questions in the database, report the question ID, question text, and the number of hints associated with it. For True-False questions, report NULL as the number of hints (since True-False questions cannot have hints).  
 

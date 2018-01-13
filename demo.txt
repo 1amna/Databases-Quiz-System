@@ -8,44 +8,44 @@ Type "help" for help.
 csc343h-mahderba=> \i runner.txt
 -- Loading schema and data:
 psql:schema.sql:15: NOTICE:  drop cascades to 38 other objects
-DETAIL:  drop cascades to table a3.student
-drop cascades to table a3.class
-drop cascades to table a3.enrolled
-drop cascades to table a3.question
-drop cascades to table a3.multiplechoice
-drop cascades to table a3."numeric"
-drop cascades to table a3.mc_hint
-drop cascades to table a3.quiz
-drop cascades to table a3.quiz_content
-drop cascades to table a3.response
-drop cascades to view a3.mcq_hint_num
-drop cascades to view a3.mc_nohint
-drop cascades to view a3.numq_hint_num
-drop cascades to view a3.hintstogether
-drop cascades to view a3.alltypes
-drop cascades to view a3.find_classid
-drop cascades to view a3.class_students
-drop cascades to view a3.class_quiz
-drop cascades to view a3.quiz_answers
-drop cascades to view a3.all_took
-drop cascades to view a3.quiz_responses
-drop cascades to view a3.weighted_responses
-drop cascades to view a3.correct_response
-drop cascades to view a3.no_response
-drop cascades to view a3.correct_counts
-drop cascades to view a3.scores_all
-drop cascades to view a3.get_id
-drop cascades to view a3.grade8_sid
-drop cascades to view a3.all_quiz_questions
-drop cascades to view a3.expected_responses
-drop cascades to view a3.response_grade8
-drop cascades to view a3.match_content
-drop cascades to view a3.match_answer
-drop cascades to view a3.actual_responses
-drop cascades to view a3.not_answered
-drop cascades to view a3.did_not_answer
-drop cascades to view a3.correct_answer
-drop cascades to view a3.incorrect_answer
+DETAIL:  drop cascades to table Quiz_sys.student
+drop cascades to table Quiz_sys.class
+drop cascades to table Quiz_sys.enrolled
+drop cascades to table Quiz_sys.question
+drop cascades to table Quiz_sys.multiplechoice
+drop cascades to table Quiz_sys."numeric"
+drop cascades to table Quiz_sys.mc_hint
+drop cascades to table Quiz_sys.quiz
+drop cascades to table Quiz_sys.quiz_content
+drop cascades to table Quiz_sys.response
+drop cascades to view Quiz_sys.mcq_hint_num
+drop cascades to view Quiz_sys.mc_nohint
+drop cascades to view Quiz_sys.numq_hint_num
+drop cascades to view Quiz_sys.hintstogether
+drop cascades to view Quiz_sys.alltypes
+drop cascades to view Quiz_sys.find_classid
+drop cascades to view Quiz_sys.class_students
+drop cascades to view Quiz_sys.class_quiz
+drop cascades to view Quiz_sys.quiz_answers
+drop cascades to view Quiz_sys.all_took
+drop cascades to view Quiz_sys.quiz_responses
+drop cascades to view Quiz_sys.weighted_responses
+drop cascades to view Quiz_sys.correct_response
+drop cascades to view Quiz_sys.no_response
+drop cascades to view Quiz_sys.correct_counts
+drop cascades to view Quiz_sys.scores_all
+drop cascades to view Quiz_sys.get_id
+drop cascades to view Quiz_sys.grade8_sid
+drop cascades to view Quiz_sys.all_quiz_questions
+drop cascades to view Quiz_sys.expected_responses
+drop cascades to view Quiz_sys.response_grade8
+drop cascades to view Quiz_sys.match_content
+drop cascades to view Quiz_sys.match_answer
+drop cascades to view Quiz_sys.actual_responses
+drop cascades to view Quiz_sys.not_answered
+drop cascades to view Quiz_sys.did_not_answer
+drop cascades to view Quiz_sys.correct_answer
+drop cascades to view Quiz_sys.incorrect_answer
 DROP SCHEMA
 CREATE SCHEMA
 SET

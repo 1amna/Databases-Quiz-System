@@ -12,10 +12,10 @@
 -- we are implementing the uniqueness of teacher and room but not the two classes per room for the above reasons. 
 
 
-DROP SCHEMA IF EXISTS a3 CASCADE;
-CREATE SCHEMA a3;
+DROP SCHEMA IF EXISTS Quiz_sys CASCADE;
+CREATE SCHEMA Quiz_sys;
 
-SET SEARCH_PATH to a3;
+SET SEARCH_PATH to Quiz_sys;
 
 -- A student
 CREATE TABLE student(
@@ -25,7 +25,7 @@ CREATE TABLE student(
   lname VARCHAR(50) NOT NULL
 );
 
--- A class which a studet can enroll in.
+-- A class which a student can enroll in.
 CREATE TABLE class(
   id BIGINT PRIMARY KEY,
   room BIGINT NOT NULL, 
